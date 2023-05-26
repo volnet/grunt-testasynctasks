@@ -26,6 +26,7 @@ module.exports = function(grunt) {
 
       // https://gruntjs.com/frequently-asked-questions#why-doesn-t-my-asynchronous-task-complete
       // forget invoke `done()`.
+      // done();
 
       grunt.log.writeln("this.files.forEach:" + self.target + ":" + f.dest + " end");
     });
