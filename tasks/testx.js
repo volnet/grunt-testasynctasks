@@ -5,6 +5,7 @@
  * Copyright (c) 2023 volnet
  * Licensed under the MIT license.
  */
+const path = require("path");
 
 'use strict';
 
@@ -14,37 +15,22 @@ module.exports = function(grunt) {
   // creation: http://gruntjs.com/creating-tasks
 
   grunt.registerMultiTask('testx', 'Test the long-time tasks in MultiTasks', function() {
-    // Merge task-specific and/or target-specific options with these defaults.
-    var options = this.options({
-      punctuation: '.',
-      separator: ', '
-    });
+    grunt.log.writeln(this.name + ":" + this.target + ' starting');
+
+    let self = this;
+    let done = this.async();
 
     // Iterate over all specified file groups.
     this.files.forEach(function(f) {
-      // Concat specified files.
-      var src = f.src.filter(function(filepath) {
-        // Warn on and remove invalid source files (if nonull was set).
-        if (!grunt.file.exists(filepath)) {
-          grunt.log.warn('Source file "' + filepath + '" not found.');
-          return false;
-        } else {
-          return true;
-        }
-      }).map(function(filepath) {
-        // Read file source.
-        return grunt.file.read(filepath);
-      }).join(grunt.util.normalizelf(options.separator));
+      grunt.log.writeln("this.files.forEach:" + self.target + ":" + f.dest + " starting");
 
-      // Handle options.
-      src += options.punctuation;
+      // https://gruntjs.com/frequently-asked-questions#why-doesn-t-my-asynchronous-task-complete
+      // forget invoke `done()`.
 
-      // Write the destination file.
-      grunt.file.write(f.dest, src);
-
-      // Print a success message.
-      grunt.log.writeln('File "' + f.dest + '" created.');
+      grunt.log.writeln("this.files.forEach:" + self.target + ":" + f.dest + " end");
     });
+
+    grunt.log.writeln(self.name + ":" + self.target + ' end');
   });
 
 };
