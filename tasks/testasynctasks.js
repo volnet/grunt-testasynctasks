@@ -1,6 +1,6 @@
 /*
- * grunt-testx
- * https://github.com/volnet/grunt-testx
+ * grunt-testasynctasks
+ * https://github.com/volnet/grunt-testasynctasks
  *
  * Copyright (c) 2023 volnet
  * Licensed under the MIT license.
@@ -14,7 +14,7 @@ module.exports = function(grunt) {
   // Please see the Grunt documentation for more information regarding task
   // creation: http://gruntjs.com/creating-tasks
 
-  grunt.registerMultiTask('testx', 'Test the long-time tasks in MultiTasks', function() {
+  grunt.registerMultiTask('testasynctasks', 'Test the long-time tasks in MultiTasks', function() {
     grunt.log.writeln(this.name + ":" + this.target + ' starting');
 
     let self = this;
@@ -26,7 +26,7 @@ module.exports = function(grunt) {
 
       // https://gruntjs.com/frequently-asked-questions#why-doesn-t-my-asynchronous-task-complete
       // forget invoke `done()`.
-      // done();
+      done();
 
       grunt.log.writeln("this.files.forEach:" + self.target + ":" + f.dest + " end");
     });

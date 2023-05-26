@@ -1,89 +1,79 @@
-# grunt-testx
+# grunt-testasynctasks
 
-> Test the long-time tasks in MultiTasks
+> Test asynchronous task not completed.
 
-## Getting Started
-This plugin requires Grunt `~0.4.5`
+## How to run
 
-If you haven't used [Grunt](http://gruntjs.com/) before, be sure to check out the [Getting Started](http://gruntjs.com/getting-started) guide, as it explains how to create a [Gruntfile](http://gruntjs.com/sample-gruntfile) as well as install and use Grunt plugins. Once you're familiar with that process, you may install this plugin with this command:
-
-```shell
-npm install grunt-testx --save-dev
+```bash
+npm install
+grunt
 ```
 
-Once the plugin has been installed, it may be enabled inside your Gruntfile with this line of JavaScript:
+## Issues: Why doesn't my asynchronous task complete?
 
-```js
-grunt.loadNpmTasks('grunt-testx');
+Official FAQ: <https://gruntjs.com/frequently-asked-questions#why-doesn-t-my-asynchronous-task-complete>
+
+```JavaScript
+grunt.registerMultiTask('testasynctasks', 'Test the long-time tasks in MultiTasks', function() {
+    grunt.log.writeln(this.name + ":" + this.target + ' starting');
+
+    let self = this;
+    let done = this.async();
+
+    // Iterate over all specified file groups.
+    this.files.forEach(function(f) {
+      grunt.log.writeln("this.files.forEach:" + self.target + ":" + f.dest + " starting");
+
+      // https://gruntjs.com/frequently-asked-questions#why-doesn-t-my-asynchronous-task-complete
+      // forget invoke `done()`.
+      // done();
+
+      grunt.log.writeln("this.files.forEach:" + self.target + ":" + f.dest + " end");
+    });
+
+    grunt.log.writeln(self.name + ":" + self.target + ' end');
+  });
 ```
 
-## The "testx" task
+output:
 
-### Overview
-In your project's Gruntfile, add a section named `testx` to the data object passed into `grunt.initConfig()`.
-
-```js
-grunt.initConfig({
-  testx: {
-    options: {
-      // Task-specific options go here.
-    },
-    your_target: {
-      // Target-specific file lists and/or options go here.
-    },
-  },
-});
+```bash
+PS E:\github.com\volnet\grunt-testasynctasks> grunt
+Running "testasynctasks:dest01" (testasynctasks) task
+testasynctasks:dest01 starting
+this.files.forEach:dest01:dest01 starting
+this.files.forEach:dest01:dest01 end
+testasynctasks:dest01 end
+PS E:\github.com\volnet\grunt-testasynctasks> 
 ```
 
-### Options
+output(expected):
 
-#### options.separator
-Type: `String`
-Default value: `',  '`
+```bash
+PS E:\github.com\volnet\grunt-testasynctasks> grunt
+Running "testasynctasks:dest01" (testasynctasks) task
+testasynctasks:dest01 starting
+this.files.forEach:dest01:dest01 starting
+this.files.forEach:dest01:dest01 end
+testasynctasks:dest01 end
 
-A string value that is used to do something with whatever.
+Running "testasynctasks:dest02" (testasynctasks) task
+testasynctasks:dest02 starting
+this.files.forEach:dest02:dest02 starting
+this.files.forEach:dest02:dest02 end
+testasynctasks:dest02 end
 
-#### options.punctuation
-Type: `String`
-Default value: `'.'`
+Running "testasynctasks:dest03" (testasynctasks) task
+testasynctasks:dest03 starting
+this.files.forEach:dest03:dest03 starting
+this.files.forEach:dest03:dest03 end
+testasynctasks:dest03 end
 
-A string value that is used to do something else with whatever else.
-
-### Usage Examples
-
-#### Default Options
-In this example, the default options are used to do something with whatever. So if the `testing` file has the content `Testing` and the `123` file had the content `1 2 3`, the generated result would be `Testing, 1 2 3.`
-
-```js
-grunt.initConfig({
-  testx: {
-    options: {},
-    files: {
-      'dest/default_options': ['src/testing', 'src/123'],
-    },
-  },
-});
+Done.
+PS E:\github.com\volnet\grunt-testasynctasks> 
 ```
 
-#### Custom Options
-In this example, custom options are used to do something else with whatever else. So if the `testing` file has the content `Testing` and the `123` file had the content `1 2 3`, the generated result in this case would be `Testing: 1 2 3 !!!`
+## Solution
 
-```js
-grunt.initConfig({
-  testx: {
-    options: {
-      separator: ': ',
-      punctuation: ' !!!',
-    },
-    files: {
-      'dest/default_options': ['src/testing', 'src/123'],
-    },
-  },
-});
-```
-
-## Contributing
-In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
-
-## Release History
-_(Nothing yet)_
+1. If you can control the code, you can call `done()` explicit.
+2. If you can't control the code, you can try setTimeout to close the async task. [issues](https://github.com/volnet/grunt-crx/blob/master/Issues.md), [code](https://github.com/volnet/grunt-crx/blob/a26dc60d7da157b56b68b1f4402c62bd8dcf9257/tasks/crx.js#L23).

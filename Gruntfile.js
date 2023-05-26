@@ -1,6 +1,6 @@
 /*
- * grunt-testx
- * https://github.com/volnet/grunt-testx
+ * grunt-testasynctasks
+ * https://github.com/volnet/grunt-testasynctasks
  *
  * Copyright (c) 2023 volnet
  * Licensed under the MIT license.
@@ -13,7 +13,7 @@ module.exports = function (grunt) {
   // Project configuration.
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
-    testxstyle01: {
+    testasynctasksstyle01: {
       a: {
         src: "tasks/**/*",
         dest: "dist/test-<%= pkg.name %>.1",
@@ -31,7 +31,7 @@ module.exports = function (grunt) {
         dest: "dist/test-<%= pkg.name %>.4",
       },
     },
-    testxstyle02: {
+    testasynctasksstyle02: {
       task01: {
         "src": "src-task01/",
         "dest": "dest-task01/"
@@ -45,10 +45,10 @@ module.exports = function (grunt) {
         "dest": "dest-task03/"
       },
     },
-    testx:{
+    testasynctasks:{
+      "dest01": "src01",
+      "dest02": "src02",
       "dest03": "src03",
-      "dest04": "src04",
-      "dest05": "src05",
     }
   });
 
@@ -56,6 +56,6 @@ module.exports = function (grunt) {
   grunt.loadTasks('tasks');
 
   // By default, lint and run all tests.
-  grunt.registerTask('default', ['testx']);
+  grunt.registerTask('default', ['testasynctasks']);
 
 };

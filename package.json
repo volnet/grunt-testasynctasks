@@ -1,8 +1,8 @@
 {
-  "name": "grunt-testx",
+  "name": "grunt-testasynctasks",
   "description": "Test the long-time tasks in MultiTasks",
   "version": "0.1.0",
-  "homepage": "https://github.com/volnet/grunt-testx",
+  "homepage": "https://github.com/volnet/grunt-testasynctasks",
   "author": {
     "name": "volnet",
     "email": "eeee6688@hotmail.com",
@@ -10,15 +10,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/volnet/grunt-testx.git"
+    "url": "https://github.com/volnet/grunt-testasynctasks.git"
   },
   "bugs": {
-    "url": "https://github.com/volnet/grunt-testx/issues"
+    "url": "https://github.com/volnet/grunt-testasynctasks/issues"
   },
   "licenses": [
     {
       "type": "MIT",
-      "url": "https://github.com/volnet/grunt-testx/blob/master/LICENSE-MIT"
+      "url": "https://github.com/volnet/grunt-testasynctasks/blob/master/LICENSE-MIT"
     }
   ],
   "engines": {
@@ -31,9 +31,6 @@
     "gruntplugin"
   ],
   "devDependencies": {
-    "grunt": "^1.6.1",
-    "grunt-contrib-clean": "^2.0.1",
-    "grunt-contrib-jshint": "^3.2.0",
-    "grunt-contrib-nodeunit": "^5.0.0"
+    "grunt": "^1.6.1"
   }
 }
